@@ -2,10 +2,10 @@
   <NuxtLayout>
     <v-app class="main">
       <MainTitle :mainTitle="mainTitle"></MainTitle>
-      <div class="searchContainer">
-        <Search :searchTitle="searchTitle" :searchValue="searchValue"></Search>
-        <Button :title="title"></Button>
-      </div>
+<!--      <div class="searchContainer">-->
+<!--        <Search :searchTitle="searchTitle" :searchValue="searchValue"></Search>-->
+<!--        <Button :title="title"></Button>-->
+<!--      </div>-->
 
       <div class="wrapper">
         <TableElementsList></TableElementsList>
