@@ -1,6 +1,7 @@
 <template>
   <NuxtLayout>
     <v-app class="main">
+      <MainTitle :mainTitle="mainTitle"></MainTitle>
       <div class="searchContainer">
         <Search></Search>
         <Button :title="title"></Button>
@@ -20,12 +21,13 @@ import Search from "~/src/components/UI/Search.vue";
 import Button from "~/src/components/UI/Button.vue";
 import TableElement from "~/src/components/TableElement.vue";
 import TableElementsList from "~/src/components/TableElementsList.vue";
+import MainTitle from "~/src/components/UI/MainTitle.vue";
 
 export default {
-  components: {TableElementsList, Button, Search},
+  components: {TableElementsList, Button, Search, MainTitle},
   data: () => ({
     title: 'Найти',
-
+    mainTitle: 'Космические корабли'
   }),
 }
 </script>

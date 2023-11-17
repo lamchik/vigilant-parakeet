@@ -1,23 +1,25 @@
 <template>
   <div>
-    <v-btn variant="tonal" color="purple-darken-3">
-      {{title}}
-    </v-btn>
+    <h1 class="title">{{mainTitle}}</h1>
+
   </div>
 </template>
 
 <script>
-
 export default {
   props: {
-    title: {
+    mainTitle: {
       type: String,
       required: true
     }
   }
+
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.title {
+  color: #09224a;
+  margin-bottom: 2rem;
+}
 </style>

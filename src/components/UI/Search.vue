@@ -1,5 +1,5 @@
 <template>
-  <v-text-field label="Поиск" clearable variant="outlined"></v-text-field>
+  <v-text-field label="Поиск" clearable variant="outlined" color="purple-darken-2"></v-text-field>
 </template>
 
 <script>

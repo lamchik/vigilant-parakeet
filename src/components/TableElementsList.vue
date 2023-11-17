@@ -6,24 +6,29 @@
         height="400"
         item-value="name"
         show-select
+        v-if="!isShipLoading"
     >
 
     </v-data-table>
-  <button class="button" @click="getShips"></button>
+  <Loader v-else></Loader>
 </template>
 
 <script>
 
+import Loader from "~/src/components/UI/Loader.vue";
+
 export default {
+  components: {Loader},
   data () {
     return {
       headers: [
         { title: 'Name', align: 'start', key: 'name' },
-        { title: 'Max speed', align: 'end', key: 'year' },
-        { title: 'Birth year', align: 'end', key: 'passengers' },
-        { title: 'Price ($)', align: 'end', key: 'price' },
+        { title: 'Max speed', align: 'end', key: 'max_atmosphering_speed' },
+        { title: 'Passengers', align: 'end', key: 'passengers' },
+        { title: 'Price ($)', align: 'end', key: 'cost_in_credits' },
       ],
-      ships: []
+      ships: [],
+      isShipLoading: true
     }
   },
   methods: {
@@ -34,15 +39,18 @@ export default {
         })
         const res = await response.json()
         this.ships = res.results
-         console.log(await res.results)
       }
       catch {
         console.log('ERROR')
       }
+      finally {
+        this.isShipLoading = false
+      }
     },
+  },
+  mounted() {
+    this.getShips()
   }
-
-
 }
 </script>
 
