@@ -1,16 +1,30 @@
 <template>
-    <v-data-table
-        class="table"
-        :headers="headers"
-        :items="ships"
-        height="400"
-        item-value="name"
-        show-select
-        v-if="!isShipLoading"
-    >
+  <div class="wrapper">
+      <v-data-table
+          :custom-filter="filterOnlyCapsText"
+          v-model:page="page"
+          class="table"
+          :headers="headers"
+          :items="users"
+          height="400"
+          item-value="name"
+          show-select
+          :search="search"
+          v-if="!isUserLoading"
+          items-per-page="6"
+      >
+        <template v-slot:top>
+          <v-text-field
+              v-model="search"
+              label="Поиск"
+              class="search"
+          ></v-text-field>
+        </template>
+      </v-data-table>
+    <Loader v-else class="loader"></Loader>
+    <v-btn v-if="!isUserLoading" @click="" color="deep-purple-lighten-1" icon="mdi-delete-outline" class="cart"></v-btn>
+  </div>
 
-    </v-data-table>
-  <Loader v-else></Loader>
 </template>
 
 <script>
@@ -21,46 +35,64 @@ export default {
   components: {Loader},
   data () {
     return {
+      page: 1,
       headers: [
         { title: 'Name', align: 'start', key: 'name' },
-        { title: 'Max speed', align: 'end', key: 'max_atmosphering_speed' },
-        { title: 'Passengers', align: 'end', key: 'passengers' },
-        { title: 'Price ($)', align: 'end', key: 'cost_in_credits' },
+        { title: 'Username', align: 'end', key: 'username' },
+        { title: 'Email', align: 'end', key: 'email' },
+        { title: 'Phone', align: 'end', key: 'phone' },
+        { title: 'City', align: 'end', key: 'address.city' },
       ],
-      ships: [],
-      isShipLoading: true
+      users: [],
+      isUserLoading: true,
+      search: ''
     }
   },
   methods: {
-    async getShips() {
+    async getUsers() {
       try {
-        const response = await fetch('https://swapi.dev/api/starships', {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users`, {
           method: "GET"
         })
-        const res = await response.json()
-        this.ships = res.results
+        this.users = await response.json()
       }
       catch {
         console.log('ERROR')
       }
       finally {
-        this.isShipLoading = false
+        this.isUserLoading = false
       }
+    },
+    filterOnlyCapsText (value, query, item) {
+      return value != null &&
+          query != null &&
+          typeof value === 'string' &&
+          value.toString().indexOf(query) !== -1
     },
   },
   mounted() {
-    this.getShips()
+    this.getUsers()
   }
 }
 </script>
 
 <style>
   .table {
-    height: 90vh;
+    height: 50vh;
+    display: flex;
+    align-items: flex-start;
   }
-  .button {
-    width: 100px;
-    height: 100px;
-    background-color: coral;
+  .wrapper{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .loader{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+  .search {
+    width: 100%;
   }
 </style>

@@ -19,6 +19,7 @@
     "vuetify": "^3.4.1"
   },
   "dependencies": {
-    "@mdi/font": "^7.3.67"
+    "@mdi/font": "^7.3.67",
+    "query-string": "^8.1.0"
   }
 }

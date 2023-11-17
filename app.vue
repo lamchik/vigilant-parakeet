@@ -2,15 +2,11 @@
   <NuxtLayout>
     <v-app class="main">
       <MainTitle :mainTitle="mainTitle"></MainTitle>
-      <div class="searchContainer">
-        <Search></Search>
-        <Button :title="title"></Button>
-      </div>
-      <v-card
-          class="mx-auto"
-          max-width="300"
-      >
-      </v-card>
+<!--      <div class="searchContainer">-->
+<!--        <Search :searchTitle="searchTitle" :searchValue="searchValue"></Search>-->
+<!--        <Button :title="title"></Button>-->
+<!--      </div>-->
+
       <TableElementsList></TableElementsList>
     </v-app>
   </NuxtLayout>
@@ -27,7 +23,9 @@ export default {
   components: {TableElementsList, Button, Search, MainTitle},
   data: () => ({
     title: 'Найти',
-    mainTitle: 'Космические корабли'
+    mainTitle: 'Пользователи',
+    searchValue: '',
+    searchTitle: 'Пользователи',
   }),
 }
 </script>
@@ -41,11 +39,18 @@ export default {
 
 .main {
   margin: 5rem;
+  display: flex;
 }
 
 .searchContainer {
   display: flex;
   align-items: center;
   gap: 4rem;
+}
+
+.cart {
+  margin: 1rem;
+
+
 }
 </style>
