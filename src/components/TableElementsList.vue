@@ -1,16 +1,16 @@
 <template>
-  <div class="wrapper">
+  <div v-if="!isUserLoading" class="wrapper">
       <v-data-table
           :custom-filter="filterOnlyCapsText"
           v-model:page="page"
+          v-model="selected"
           class="table"
           :headers="headers"
           :items="users"
           height="400"
-          item-value="name"
+          item-value="id"
           show-select
           :search="search"
-          v-if="!isUserLoading"
           items-per-page="6"
       >
         <template v-slot:top>
@@ -21,14 +21,13 @@
           ></v-text-field>
         </template>
       </v-data-table>
-    <Loader v-else class="loader"></Loader>
-    <v-btn v-if="!isUserLoading" @click="" color="deep-purple-lighten-1" icon="mdi-delete-outline" class="cart"></v-btn>
+    <v-btn @click="removeUsers(selected)" color="deep-purple-lighten-1" icon="mdi-delete-outline" class="cart"></v-btn>
   </div>
+  <Loader v-else class="loader"></Loader>
 
 </template>
 
 <script>
-
 import Loader from "~/src/components/UI/Loader.vue";
 
 export default {
@@ -36,6 +35,9 @@ export default {
   data () {
     return {
       page: 1,
+      selected: [],
+      users: [],
+      isUserLoading: true,
       headers: [
         { title: 'Name', align: 'start', key: 'name' },
         { title: 'Username', align: 'end', key: 'username' },
@@ -43,8 +45,6 @@ export default {
         { title: 'Phone', align: 'end', key: 'phone' },
         { title: 'City', align: 'end', key: 'address.city' },
       ],
-      users: [],
-      isUserLoading: true,
       search: ''
     }
   },
@@ -69,10 +69,14 @@ export default {
           typeof value === 'string' &&
           value.toString().indexOf(query) !== -1
     },
+    removeUsers(selected) {
+      this.users = this.users.filter(user => !selected.includes(user.id))
+    }
   },
   mounted() {
     this.getUsers()
   }
+
 }
 </script>
 
@@ -82,17 +86,17 @@ export default {
     display: flex;
     align-items: flex-start;
   }
+  .search {
+    width: 100%;
+  }
   .wrapper{
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
   }
-  .loader{
+  .loader {
     position: absolute;
-    left: 50%;
+    right: 50%;
     top: 50%;
-  }
-  .search {
-    width: 100%;
   }
 </style>

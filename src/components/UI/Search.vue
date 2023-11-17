@@ -1,14 +1,13 @@
 <template>
   <v-text-field
-      v-bind:value="searchValue"
-      @input="inputValue"
+      v-model="searchValue"
+     
       label="Поиск"
       clearable
       variant="outlined"
       color="purple-darken-2"
   >
   </v-text-field>
-  <input v-bind:value="searchValue" @input="inputValue"/>
 </template>
 
 <script>
